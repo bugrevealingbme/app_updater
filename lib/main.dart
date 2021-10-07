@@ -10,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:marquee_widget/marquee_widget.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:permission_handler/permission_handler.dart';
@@ -26,9 +27,12 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  //only portrait
   await SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp],
   );
+
   MobileAds.instance.initialize();
 
   //Remove this method to stop OneSignal Debugging
@@ -37,9 +41,9 @@ void main() async {
   OneSignal.shared.setAppId("ae9135ea-71ec-4aff-b31a-d9d71ebde556");
 
 // The promptForPushNotificationsWithUserResponse function will show the iOS push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
-  OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
-    print("Accepted permission: $accepted");
-  });
+  OneSignal.shared
+      .promptUserForPushNotificationPermission()
+      .then((accepted) {});
 
   runApp(const MyApp());
 }
@@ -96,13 +100,11 @@ Future fetchApkmirror(List<String> packageName) async {
   var cacheDir = await getTemporaryDirectory();
 
   if (await File(cacheDir.path + "/" + fileName).exists() && false) {
-    debugPrint("Loading from cache");
     //TOD0: Reading from the json File
     var jsonData = File(cacheDir.path + "/" + fileName).readAsStringSync();
     // ApiResponse response = ApiResponse.fromJson();
     return json.decode(jsonData);
   } else {
-    debugPrint("Loading from API");
     final response = await http.post(
         Uri.parse('https://www.apkmirror.com/wp-json/apkm/v1/app_exists'),
         headers: {
@@ -136,6 +138,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // status bar color
+
     final platform = Theme.of(context).platform;
     return MaterialApp(
       localizationsDelegates: const [
@@ -148,8 +152,15 @@ class MyApp extends StatelessWidget {
         Locale('en', ''),
       ],
       title: 'App Updater',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        backgroundColor: const Color(0xfff3f3f3),
+        //primaryTextTheme: TextTheme(headline1: ),
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        backgroundColor: const Color(0xff000000),
       ),
       home: MyHomePage(
         title: 'App Updater',
@@ -278,18 +289,20 @@ class _MyHomePageState extends State<MyHomePage> {
 
     _permissionReady = false;
 
-    InterstitialAd.load(
-        adUnitId: 'ca-app-pub-3753684966275105/1886941590',
-        request: const AdRequest(),
-        adLoadCallback: InterstitialAdLoadCallback(
-          onAdLoaded: (InterstitialAd ad) {
-            // Keep a reference to the ad so you can show it later.
-            this._interstitialAd = ad;
-          },
-          onAdFailedToLoad: (LoadAdError error) {
-            print('InterstitialAd failed to load: $error');
-          },
-        ));
+    try {
+      InterstitialAd.load(
+          adUnitId: 'ca-app-pub-3753684966275105/1886941590',
+          request: const AdRequest(),
+          adLoadCallback: InterstitialAdLoadCallback(
+            onAdLoaded: (InterstitialAd ad) {
+              // Keep a reference to the ad so you can show it later.
+              _interstitialAd = ad;
+            },
+            onAdFailedToLoad: (LoadAdError error) {
+              //debugPrint('InterstitialAd failed to load: $error');
+            },
+          ));
+    } catch (e) {}
   }
 
   Future<int> _getAdnroidSDK() async {
@@ -363,31 +376,45 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Theme.of(context).backgroundColor));
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0,
         title: Text(widget.title,
             style: const TextStyle(
               color: Colors.black,
             )),
+        toolbarHeight: 0,
       ),
-      body: FutureBuilder<bool?>(
-          future: _dataAccept,
-          builder: (BuildContext context, AsyncSnapshot<bool?> snapshot) {
-            if (snapshot.data == true) {
-              return homePage();
-            }
+      body: SingleChildScrollView(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+          child: FutureBuilder<bool?>(
+              future: _dataAccept,
+              builder: (BuildContext context, AsyncSnapshot<bool?> snapshot) {
+                if (snapshot.data == true) {
+                  return homePage();
+                }
 
-            return const CircularProgressIndicator();
-          }),
+                return const Center(child: CircularProgressIndicator());
+              }),
+        ),
+      ),
     );
   }
 
-  SingleChildScrollView homePage() {
-    return SingleChildScrollView(
-        child: Column(
+  Column homePage() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const SizedBox(height: 100),
+        Text(widget.title, style: const TextStyle(fontSize: 26)),
+        const SizedBox(height: 25),
         FutureBuilder(
             future: canim,
             builder: (BuildContext buildContext, AsyncSnapshot snapshot) {
@@ -440,9 +467,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
                       return Card(
                         elevation: 0,
+                        margin: const EdgeInsets.only(bottom: 10),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
                         child: ListTile(
                             contentPadding: const EdgeInsets.symmetric(
-                                vertical: 0, horizontal: 20),
+                                vertical: 10, horizontal: 20),
                             leading: CircleAvatar(
                               backgroundColor: Colors.transparent,
                               child: Image.memory(app.icon),
@@ -459,28 +490,56 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 .toString() !=
                                             app.versionName.toString() &&
                                         str.toInt() > app.versionCode.toInt()
-                                    ? Row(
+                                    ? Column(
                                         children: [
-                                          Flexible(
-                                            child: Text(
-                                              app.versionName.toString(),
-                                              style: const TextStyle(
-                                                  color: Colors.red,
-                                                  decoration: TextDecoration
-                                                      .lineThrough),
-                                              softWrap: true,
+                                          const SizedBox(height: 3),
+                                          Marquee(
+                                            pauseDuration: const Duration(
+                                                milliseconds: 300),
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                  app.versionName.toString(),
+                                                  style: const TextStyle(
+                                                      color: Colors.red,
+                                                      decoration: TextDecoration
+                                                          .lineThrough),
+                                                  maxLines: 1,
+                                                ),
+                                                const Text(" => "),
+                                                Text(
+                                                  snapshot.data['data'][index]
+                                                          ['release']['version']
+                                                      .toString(),
+                                                  style: const TextStyle(
+                                                      color: Colors.green),
+                                                  maxLines: 1,
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          const Text(" => "),
-                                          Expanded(
-                                            child: Text(
+                                          if (snapshot.data['data'][index]
+                                                      ['release']['version']
+                                                  .toString()
+                                                  .contains('beta') ||
                                               snapshot.data['data'][index]
                                                       ['release']['version']
-                                                  .toString(),
-                                              style: const TextStyle(
-                                                  color: Colors.green),
+                                                  .toString()
+                                                  .contains('alpha')) ...[
+                                            const SizedBox(height: 10),
+                                            Row(
+                                              children: const [
+                                                Icon(Icons.warning_rounded,
+                                                    color: Colors.red),
+                                                SizedBox(width: 3),
+                                                Expanded(
+                                                  child: Text("Beta version.",
+                                                      style: TextStyle(
+                                                          color: Colors.red)),
+                                                ),
+                                              ],
                                             ),
-                                          ),
+                                          ]
                                         ],
                                       )
                                     : Text(
@@ -565,9 +624,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                                     color: Colors.white,
                                                   )),
                                               onPressed: () {
-                                                try {
-                                                  _interstitialAd.show();
-                                                } catch (e) {}
                                                 modelSheetDownload(context, app,
                                                     snapshot, index, _tasks);
                                               },
@@ -596,7 +652,7 @@ class _MyHomePageState extends State<MyHomePage> {
               return const CircularProgressIndicator();
             }),
       ],
-    ));
+    );
   }
 
   Future<dynamic> modelSheetDownload(
@@ -605,8 +661,6 @@ class _MyHomePageState extends State<MyHomePage> {
       AsyncSnapshot<dynamic> snapshot,
       int index,
       List<_TaskInfo>? _tasks) async {
-    //debugPrint(_tasks![index].status.toString());
-
     final directory = await getExternalStorageDirectory();
     String path =
         directory!.path + "/Download/" + app.packageName.toString() + ".apk";
@@ -643,56 +697,74 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            children: [
-                              CircleAvatar(
-                                backgroundColor: Colors.transparent,
-                                child: Image.memory(
-                                  app.icon,
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 48,
+                                  height: 48,
+                                  child: Image.memory(
+                                    app.icon,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text(app.appName,
-                                  style: const TextStyle(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.bold)),
-                            ],
+                                const SizedBox(height: 7),
+                                Text(app.appName,
+                                    style: const TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.bold)),
+                                const SizedBox(height: 5),
+                                Text(
+                                    "Current Version: " +
+                                        app.versionName.toString(),
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      color: Color(0xffa4a4a4),
+                                    )),
+                              ],
+                            ),
                           ),
                           const SizedBox(height: 15),
-                          const SizedBox(height: 5),
                           const Divider(),
-                          const SizedBox(height: 30),
+                          const SizedBox(height: 20),
                           if (snapshot.data['data'][index]['release']
                                   ['whats_new'] !=
                               "") ...[
                             const Text("Changelog",
                                 style: TextStyle(
                                     fontSize: 16, fontWeight: FontWeight.bold)),
-                            Html(
-                              data: snapshot.data['data'][index]['release']
-                                  ['whats_new'],
-                              style: {
-                                "p": Style(
-                                    margin: const EdgeInsets.only(top: 10),
-                                    padding: const EdgeInsets.all(0),
-                                    fontSize: const FontSize(15.0),
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.grey),
-                              },
+                            Container(
+                              constraints: const BoxConstraints(maxHeight: 100),
+                              child: SingleChildScrollView(
+                                child: Html(
+                                  data: snapshot.data['data'][index]['release']
+                                      ['whats_new'],
+                                  style: {
+                                    "p": Style(
+                                        margin: const EdgeInsets.only(top: 10),
+                                        padding: const EdgeInsets.all(0),
+                                        fontSize: const FontSize(15.0),
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.grey),
+                                  },
+                                ),
+                              ),
                             ),
                             const SizedBox(height: 20),
                           ],
-
-                          const Text("File Details",
+                          const Text("App Details",
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold)),
                           const SizedBox(height: 20),
                           fileDetailRow("Package name", app.packageName,
                               const Icon(Icons.android)),
-                          fileDetailRow("Version Name", app.versionName,
-                              const Icon(Icons.vertical_split_rounded)),
+                          fileDetailRow(
+                              "Upgrade Version",
+                              snapshot.data['data'][index]['release']
+                                  ['version'],
+                              const Icon(Icons.upgrade)),
                           fileDetailRow(
                               "System App",
                               app.systemApp.toString(),
@@ -757,7 +829,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                             _interstitialAd.show();
                                           } catch (e) {}
                                           if (directoryExists || fileExists) {
-                                            debugPrint(path.toString());
                                             OpenFile.open(path);
                                           }
                                         },
@@ -807,7 +878,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Row fileDetailRow(title, subtitle, icon) {
-    var subsub;
+    Widget subsub;
     if (subtitle == "false" || subtitle == "true") {
       subsub = Row(
         children: [

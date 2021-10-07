@@ -10,7 +10,6 @@
     <bool name="abc_action_bar_embed_tabs">true</bool>
     <bool name="abc_config_actionMenuItemAllCaps">true</bool>
     <bool name="enable_system_alarm_service_default">true</bool>
-    <bool name="enable_system_foreground_service_default">true</bool>
     <bool name="enable_system_job_service_default">false</bool>
     <bool name="workmanager_test_configuration">false</bool>
     <color name="abc_decor_view_status_guard">#ff000000</color>
@@ -344,14 +343,6 @@
     <string name="common_signin_button_text">Sign in</string>
     <string name="common_signin_button_text_long">Sign in with Google</string>
     <string name="fcm_fallback_notification_channel_label">Miscellaneous</string>
-    <string name="flutter_downloader_notification_canceled">canceled</string>
-    <string name="flutter_downloader_notification_channel_description">Display download progress</string>
-    <string name="flutter_downloader_notification_channel_name">Downloader</string>
-    <string name="flutter_downloader_notification_complete">complete</string>
-    <string name="flutter_downloader_notification_failed">failed</string>
-    <string name="flutter_downloader_notification_in_progress">in progress</string>
-    <string name="flutter_downloader_notification_paused">paused</string>
-    <string name="flutter_downloader_notification_started">started</string>
     <string name="location_not_available_message">Looks like this app doesn\'t have location services configured. Please see OneSignal docs for more information.</string>
     <string name="location_not_available_open_settings_message">You have previously denied sharing your device location. Please go to settings to enable.</string>
     <string name="location_not_available_open_settings_option">Settings</string>

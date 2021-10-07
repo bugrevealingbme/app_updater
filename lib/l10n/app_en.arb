@@ -1,5 +1,18 @@
 {
+    "title": "App Updater",
     "update": "Update",
     "no_update": "No Update",
-    "no_support": "Not Supported"
+    "no_support": "Not Supported",
+    "changelog": "Changelog",
+    "app_details": "App Details",
+    "package_name": "Package name",
+    "upgrade_version": "Upgrade Version",
+    "system_app": "System App",
+    "yes": "Yes",
+    "download_started": "Download starting, please wait",
+    "download_update": "Download Update",
+    "install_update": "Install update",
+    "delete_update": "Delete update",
+    "deleted": "Deleted.",
+    "bundle_update_info": "This is a Bundle update. Manual installation is required. We do not support it yet."
 }

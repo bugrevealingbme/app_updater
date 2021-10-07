@@ -48,18 +48,5 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3753684966275105~7682193755"/>
-
-        <provider
-          android:name="vn.hunghd.flutterdownloader.DownloadedFileProvider"
-          android:authorities="${applicationId}.flutter_downloader.provider"
-          android:exported="false"
-          android:grantUriPermissions="true">
-          <meta-data
-              android:name="android.support.FILE_PROVIDER_PATHS"
-              android:resource="@xml/provider_paths"/>
-      </provider>
-
-
-
     </application>
 </manifest>
