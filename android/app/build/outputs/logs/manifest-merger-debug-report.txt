@@ -16,7 +16,6 @@ MERGED from [:google_mobile_ads] E:\src\flutter\.pub-cache\hosted\pub.dartlang.o
 MERGED from [:onesignal_flutter] E:\src\flutter\.pub-cache\hosted\pub.dartlang.org\onesignal_flutter-3.2.3\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:webview_flutter_android] E:\src\flutter\.pub-cache\hosted\pub.dartlang.org\webview_flutter_android-2.0.15\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:path_provider] E:\src\flutter\.pub-cache\hosted\pub.dartlang.org\path_provider-2.0.5\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
-MERGED from [:connectivity] E:\src\flutter\.pub-cache\hosted\pub.dartlang.org\connectivity-3.0.6\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:system_properties] E:\src\flutter\.pub-cache\git\system_properties-ce61a0f71428402c8900799f99d1509f1d3a1d67\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:permission_handler] E:\src\flutter\.pub-cache\hosted\pub.dartlang.org\permission_handler-8.2.2\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:android_path_provider] E:\flutter_apps\app_updater\build\android_path_provider\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
@@ -282,8 +281,6 @@ MERGED from [:webview_flutter_android] E:\src\flutter\.pub-cache\hosted\pub.dart
 MERGED from [:webview_flutter_android] E:\src\flutter\.pub-cache\hosted\pub.dartlang.org\webview_flutter_android-2.0.15\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:path_provider] E:\src\flutter\.pub-cache\hosted\pub.dartlang.org\path_provider-2.0.5\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:path_provider] E:\src\flutter\.pub-cache\hosted\pub.dartlang.org\path_provider-2.0.5\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:connectivity] E:\src\flutter\.pub-cache\hosted\pub.dartlang.org\connectivity-3.0.6\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:connectivity] E:\src\flutter\.pub-cache\hosted\pub.dartlang.org\connectivity-3.0.6\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:system_properties] E:\src\flutter\.pub-cache\git\system_properties-ce61a0f71428402c8900799f99d1509f1d3a1d67\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:system_properties] E:\src\flutter\.pub-cache\git\system_properties-ce61a0f71428402c8900799f99d1509f1d3a1d67\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:permission_handler] E:\src\flutter\.pub-cache\hosted\pub.dartlang.org\permission_handler-8.2.2\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
@@ -454,8 +451,6 @@ ADDED from [:open_file] E:\src\flutter\.pub-cache\hosted\pub.dartlang.org\open_f
 		ADDED from [:open_file] E:\src\flutter\.pub-cache\hosted\pub.dartlang.org\open_file-3.2.1\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:19:17-67
 uses-permission#android.permission.ACCESS_NETWORK_STATE
 ADDED from [:r_upgrade] E:\src\flutter\.pub-cache\hosted\pub.dartlang.org\r_upgrade-0.3.5\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:9:5-79
-MERGED from [:connectivity] E:\src\flutter\.pub-cache\hosted\pub.dartlang.org\connectivity-3.0.6\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-79
-MERGED from [:connectivity] E:\src\flutter\.pub-cache\hosted\pub.dartlang.org\connectivity-3.0.6\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-79
 MERGED from [com.onesignal:OneSignal:4.5.1] C:\Users\bugre\.gradle\caches\transforms-2\files-2.1\b00bdd91b3026a672a21bcc59208093a\jetified-OneSignal-4.5.1\AndroidManifest.xml:24:5-79
 MERGED from [com.onesignal:OneSignal:4.5.1] C:\Users\bugre\.gradle\caches\transforms-2\files-2.1\b00bdd91b3026a672a21bcc59208093a\jetified-OneSignal-4.5.1\AndroidManifest.xml:24:5-79
 MERGED from [com.google.android.exoplayer:exoplayer-core:2.14.1] C:\Users\bugre\.gradle\caches\transforms-2\files-2.1\7ba8580a5dc5328fe787a86cb85d8be3\jetified-exoplayer-core-2.14.1\AndroidManifest.xml:24:5-79

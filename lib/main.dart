@@ -206,6 +206,9 @@ class _MyHomePageState extends State<MyHomePage> {
   late String _localPath;
   late bool _permissionReady;
   late InterstitialAd _interstitialAd;
+  TextEditingController editingController = TextEditingController();
+  String searchString = "";
+
   List oldTasks = [];
   int sdkVer = 63;
 
@@ -415,6 +418,39 @@ class _MyHomePageState extends State<MyHomePage> {
         const SizedBox(height: 100),
         Text(widget.title, style: const TextStyle(fontSize: 26)),
         const SizedBox(height: 25),
+        SizedBox(
+          height: 50,
+          child: TextField(
+            onChanged: (value) {
+              setState(() {
+                searchString = value;
+              });
+            },
+            controller: editingController,
+            decoration: InputDecoration(
+              hintText: 'Search',
+              hintStyle:
+                  const TextStyle(color: Color(0xff8f8f8f), fontSize: 17),
+              contentPadding: const EdgeInsets.symmetric(vertical: 0.0),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(50.0),
+                borderSide: BorderSide.none,
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    width: 2, color: Theme.of(context).colorScheme.secondary),
+                borderRadius: BorderRadius.circular(50.0),
+              ),
+              filled: true,
+              fillColor: Theme.of(context).cardColor,
+              prefixIcon: const Icon(
+                Icons.search,
+                color: Color(0xff8f8f8f),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 25),
         FutureBuilder(
             future: canim,
             builder: (BuildContext buildContext, AsyncSnapshot snapshot) {
@@ -459,9 +495,17 @@ class _MyHomePageState extends State<MyHomePage> {
                       }
                     }
 
-                    if (snapshot.data['data'][index]['exists'] == true &&
-                        snapshot.data['data'][index]['pname'].toString() !=
-                            "com.android.settings") {
+                    if ((snapshot.data['data'][index]['exists'] == true &&
+                            snapshot.data['data'][index]['pname'].toString() !=
+                                "com.android.settings") &&
+                        (snapshot.data['data'][index]['pname']
+                                .toString()
+                                .toLowerCase()
+                                .contains(searchString.toLowerCase()) ||
+                            app.appName
+                                .toString()
+                                .toLowerCase()
+                                .contains(searchString.toLowerCase()))) {
                       num str = int.parse(snapshot.data['data'][index]['apks']
                           [0]['version_code']);
 
@@ -472,6 +516,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: ListTile(
+                            onLongPress: () {
+                              app.openSettingsScreen();
+                            },
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 20),
                             leading: CircleAvatar(
@@ -485,6 +535,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               textBaseline: TextBaseline.alphabetic,
                               children: [
                                 Text(app.packageName.toString()),
+                                const SizedBox(height: 3),
                                 snapshot.data['data'][index]['release']
                                                     ['version']
                                                 .toString() !=
@@ -492,7 +543,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                         str.toInt() > app.versionCode.toInt()
                                     ? Column(
                                         children: [
-                                          const SizedBox(height: 3),
                                           Marquee(
                                             pauseDuration: const Duration(
                                                 milliseconds: 300),
