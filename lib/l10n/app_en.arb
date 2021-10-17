@@ -14,5 +14,13 @@
     "install_update": "Install update",
     "delete_update": "Delete update",
     "deleted": "Deleted.",
-    "bundle_update_info": "This is a Bundle update. Manual installation is required. We do not support it yet."
+    "bundle_update_info": "This is a Bundle update. Manual installation is required. We do not support it yet.",
+    "settings": "Settings",
+    "general": "General",
+    "language": "Language",
+    "dark_mode": "Dark Mode",
+    "same_dt": "Same as device theme",
+    "always_dark": "Always in dark theme",
+    "always_light": "Always in light theme",
+    "theme": "Theme"
 }

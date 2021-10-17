@@ -17,7 +17,7 @@ MERGED from [:onesignal_flutter] E:\src\flutter\.pub-cache\hosted\pub.dartlang.o
 MERGED from [:webview_flutter_android] E:\src\flutter\.pub-cache\hosted\pub.dartlang.org\webview_flutter_android-2.0.15\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:path_provider] E:\src\flutter\.pub-cache\hosted\pub.dartlang.org\path_provider-2.0.5\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:system_properties] E:\src\flutter\.pub-cache\git\system_properties-ce61a0f71428402c8900799f99d1509f1d3a1d67\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
-MERGED from [:permission_handler] E:\src\flutter\.pub-cache\hosted\pub.dartlang.org\permission_handler-8.2.2\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:permission_handler] E:\src\flutter\.pub-cache\hosted\pub.dartlang.org\permission_handler-8.2.5\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:android_path_provider] E:\flutter_apps\app_updater\build\android_path_provider\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:shared_preferences] E:\src\flutter\.pub-cache\hosted\pub.dartlang.org\shared_preferences-2.0.8\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [com.onesignal:OneSignal:4.5.1] C:\Users\bugre\.gradle\caches\transforms-2\files-2.1\b00bdd91b3026a672a21bcc59208093a\jetified-OneSignal-4.5.1\AndroidManifest.xml:2:1-136:12
@@ -283,8 +283,8 @@ MERGED from [:path_provider] E:\src\flutter\.pub-cache\hosted\pub.dartlang.org\p
 MERGED from [:path_provider] E:\src\flutter\.pub-cache\hosted\pub.dartlang.org\path_provider-2.0.5\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:system_properties] E:\src\flutter\.pub-cache\git\system_properties-ce61a0f71428402c8900799f99d1509f1d3a1d67\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:system_properties] E:\src\flutter\.pub-cache\git\system_properties-ce61a0f71428402c8900799f99d1509f1d3a1d67\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:permission_handler] E:\src\flutter\.pub-cache\hosted\pub.dartlang.org\permission_handler-8.2.2\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:permission_handler] E:\src\flutter\.pub-cache\hosted\pub.dartlang.org\permission_handler-8.2.2\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:permission_handler] E:\src\flutter\.pub-cache\hosted\pub.dartlang.org\permission_handler-8.2.5\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:permission_handler] E:\src\flutter\.pub-cache\hosted\pub.dartlang.org\permission_handler-8.2.5\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:android_path_provider] E:\flutter_apps\app_updater\build\android_path_provider\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:android_path_provider] E:\flutter_apps\app_updater\build\android_path_provider\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:shared_preferences] E:\src\flutter\.pub-cache\hosted\pub.dartlang.org\shared_preferences-2.0.8\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44

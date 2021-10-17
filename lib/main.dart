@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:android_path_provider/android_path_provider.dart';
+import 'package:app_updater/settings.dart';
 import 'package:device_apps/device_apps.dart';
 import 'package:device_info/device_info.dart';
 import 'package:flutter/cupertino.dart';
@@ -138,13 +139,65 @@ Future<String?> getAbilist() async {
   return await SystemProperties.getSystemProperties("ro.product.cpu.abi");
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  _MyAppState createState() => _MyAppState();
+
+  static _MyAppState? of(BuildContext context) =>
+      context.findAncestorStateOfType<_MyAppState>();
+}
+
+class _MyAppState extends State<MyApp> {
+  Locale _locale = const Locale('en');
+  int geted = 4;
+
+  setLocale(Locale value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _locale = value;
+    });
+    prefs.setString('langCode', value.toString());
+    await AppLocalizations.delegate.load(_locale);
+  }
+
+  ThemeMode _themeMode = ThemeMode.system;
+
+  void changeTheme(ThemeMode themeMode) {
+    setState(() {
+      _themeMode = themeMode;
+    });
+  }
+
+  getState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String deviceLanguage = Platform.localeName.substring(0, 2);
+    setState(() {
+      if (prefs.getString('langCode') != null) {
+        _locale = Locale(prefs.getString('langCode').toString());
+      } else {
+        prefs.setString('langCode', deviceLanguage);
+      }
+
+      var _darkValue = prefs.getString("darkAmk") ?? "device";
+      if (_darkValue == "light") {
+        _themeMode = ThemeMode.light;
+      } else if (_darkValue == "dark") {
+        _themeMode = ThemeMode.dark;
+      } else {
+        _themeMode = ThemeMode.system;
+      }
+    });
+  }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // status bar color
+    if (geted == 4) {
+      getState();
+      geted = 9;
+    }
 
     final platform = Theme.of(context).platform;
     return MaterialApp(
@@ -159,14 +212,25 @@ class MyApp extends StatelessWidget {
       ],
       title: 'App Updater',
       debugShowCheckedModeBanner: false,
+      themeMode: _themeMode,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
         backgroundColor: const Color(0xfff3f3f3),
-        //primaryTextTheme: TextTheme(headline1: ),
+        appBarTheme: const AppBarTheme(
+          foregroundColor: Colors.black,
+          systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarColor: Color(0xfff3f3f3),
+              statusBarIconBrightness: Brightness.dark),
+        ),
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
         backgroundColor: const Color(0xff000000),
+        appBarTheme: const AppBarTheme(
+          foregroundColor: Colors.white,
+          systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarColor: Color(0xff000000),
+              statusBarIconBrightness: Brightness.light),
+        ),
       ),
       home: MyHomePage(
         title: 'App Updater',
@@ -391,18 +455,33 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: Theme.of(context).backgroundColor));
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0,
-        title: Text(widget.title,
+        /*title: Text(widget.title,
             style: const TextStyle(
               color: Colors.black,
             )),
-        toolbarHeight: 0,
+        toolbarHeight: 0,*/
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) => const SettingsPage()));
+              },
+              icon: const Icon(
+                Icons.settings_outlined,
+                size: 26.0,
+              ),
+            ),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Container(
