@@ -15,7 +15,7 @@
           "value": "x86_64"
         }
       ],
-      "versionCode": 4009,
+      "versionCode": 4011,
       "versionName": "1.0.0",
       "outputFile": "app-x86_64-release.apk"
     },
@@ -27,7 +27,7 @@
           "value": "armeabi-v7a"
         }
       ],
-      "versionCode": 1009,
+      "versionCode": 1011,
       "versionName": "1.0.0",
       "outputFile": "app-armeabi-v7a-release.apk"
     },
@@ -39,7 +39,7 @@
           "value": "arm64-v8a"
         }
       ],
-      "versionCode": 2009,
+      "versionCode": 2011,
       "versionName": "1.0.0",
       "outputFile": "app-arm64-v8a-release.apk"
     }

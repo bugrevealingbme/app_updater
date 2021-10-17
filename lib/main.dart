@@ -94,6 +94,12 @@ extension MyDateExtension on DateTime {
 }
 
 Future fetchApkmirror(List<String> packageName) async {
+  Fluttertoast.showToast(
+      msg: "Getting version details...",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      fontSize: 16.0);
+
   DateTime now = DateTime.now();
   DateTime dateOnly = now.getDateOnly();
   String fileName = "CacheData" + "Apps" + dateOnly.toString() + ".json";
@@ -186,6 +192,12 @@ class _MyHomePageState extends State<MyHomePage> {
   List<_TaskInfo>? _tasks = [];
 
   Future getAppInfo(List<Application> value) async {
+    Fluttertoast.showToast(
+        msg: "Getting app list...",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        fontSize: 16.0);
+
     List<String> packList = [];
 
     for (var element in value) {
