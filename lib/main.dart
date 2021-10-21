@@ -25,6 +25,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:open_file/open_file.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -411,7 +412,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<String?> _findLocalPath() async {
-    var externalStorageDirPath;
+    String? externalStorageDirPath;
     if (Platform.isAndroid) {
       try {
         externalStorageDirPath = await AndroidPathProvider.downloadsPath;
@@ -445,6 +446,14 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _permissionReady = hasGranted;
     });
+  }
+
+  launchURLBrowser(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   @override
@@ -588,7 +597,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
                     if ((snapshot.data['data'][index]['exists'] == true &&
                             snapshot.data['data'][index]['pname'].toString() !=
-                                "com.android.settings") &&
+                                "com.android.settings" &&
+                            snapshot.data['data'][index]['pname'].toString() !=
+                                "com.android.email") &&
                         (snapshot.data['data'][index]['pname']
                                 .toString()
                                 .toLowerCase()
@@ -882,6 +893,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                 child: Html(
                                   data: snapshot.data['data'][index]['release']
                                       ['whats_new'],
+                                  onLinkTap:
+                                      (url, context, attributes, element) {
+                                    launchURLBrowser(url!);
+                                  },
                                   style: {
                                     "p": Style(
                                         margin: const EdgeInsets.only(top: 10),
